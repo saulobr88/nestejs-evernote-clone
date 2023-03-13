@@ -1,0 +1,24 @@
+{% extends 'layouts/default.njk' %}
+
+{% block header %}
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Início</h1>
+
+        <p class="fs-5 text-muted">
+        Aqui é a página inicial, aqui são exibidas as anotações (notas) do sistema 😀 !!!
+        </p>
+        <p>
+            {{ message }}
+        </p>
+    </div>
+{% endblock %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div>This would display if the 'notes' collection were empty</div>
+        </div>
+    </div>
+
+{% endblock %}
