@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="mb-3 col-6">
+        <label class="form-label" for="title"><b>Título</b></label>
+        <input 
+            class="form-control"
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Título"
+            required
+            {% if note.title %}value="{{note.title}}"
+            {% endif %}autofocus
+        />
+    </div>
+    <div class="mb-3 col-6">
+        <label class="form-label" for="category_id"><b>Categoria</b></label>
+        <select 
+            class="form-select"
+            id="category_select"
+            name="category_id"
+            placeholder="Selectione a categoria"
+            required
+        >
+        {% for category in categories %}
+            <option value={{ category.id }} {% if note and (note.category_id === category.id) %} selected {% endif %} >{{ category.name }}</option>
+        {% endfor %}}
+
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-12">
+        <label class="form-label" for="body"><b>Corpo</b></label>
+        <textarea
+            class="form-control"
+            id="body"
+            name="body"
+            type="text"
+            placeholder="Corpo"
+            style="height: 10rem;"
+        >{%- if note.body -%}{{note.body}}{%- endif -%}</textarea>
+    </div>
+</div>
+
+<div class="row">
+    <div class="mb-3 col-12">
+        <label class="form-label" for="tags[]"><b>Etiquetas</b></label>
+        <div>
+        {%- for tag in tags -%}
+            {%- set checkedVar = false -%}
+            {%- if note and note.tags.length > 0 -%}
+                {%- for t in note.tags -%}
+                    {%- if not checkedVar -%}
+                        {%- if (t.id == tag.id ) -%}
+                            {%- set checkedVar = true -%}
+                        {%- endif -%}
+                    {%- endif -%}
+                {%- endfor -%}
+            {%- endif -%}
+            <div class="form-check form-check-inline col-3">
+                <input 
+                    class="form-check-input"
+                    type="checkbox"
+                    name="tags[]"
+                    value="{{ tag.id }}"
+                    {% if checkedVar -%} checked {%- endif -%}
+                    />
+                <label class="form-check-label">
+                    {{ tag.name }}
+                </label>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>

@@ -8,8 +8,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(@Res() res: Response) {
+  index(@Res() res: Response) {
     const message: string = this.appService.getHello();
     return res.render('index.njk', { message });
+  }
+
+  @Get('create')
+  create(@Res() res: Response) {
+    return res.render('notes/create.njk');
   }
 }
