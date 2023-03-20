@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+
+  db:
+    image: postgres:13.4
+    container_name: postgres_evernote_clone
+    restart: always
+    environment:
+      - POSTGRES_DB=my_database
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - TIME_ZONE="America/Recife"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - 5438:5432
+    volumes:
+      - "./.data/postgres:/var/lib/postgresql/data"
+      # copy the sql script to create tables
+      #- ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql

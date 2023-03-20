@@ -6,16 +6,19 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'categories' })
-export class Category {
+@Entity({ name: 'notes' })
+export class Note {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  title: string;
+
+  @Column({ type: 'text', nullable: true })
+  body: string;
 
   @Column()
-  slug: string;
+  category_id: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;
