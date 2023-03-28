@@ -23,14 +23,15 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll(@Res() res: Response) {
+  async findAll(@Res() res: Response) {
     const title: string = this.categoriesService.getHello();
-    return res.render('categories/index.njk', { title });
+    const categories = await this.categoriesService.findAll();
+    return res.render('categories/index.njk', { title, categories });
     // return this.categoriesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(+id);
   }
 

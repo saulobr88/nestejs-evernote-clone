@@ -10,7 +10,7 @@ export class AppController {
   @Get()
   index(@Res() res: Response) {
     const message: string = this.appService.getHello();
-    return res.render('index.njk', { message });
+    return res.render('index', { message });
   }
 
   @Get('create')
