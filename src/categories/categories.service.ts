@@ -11,6 +11,7 @@ export class CategoriesService {
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
   ) {}
+
   create(createCategoryDto: CreateCategoryDto) {
     return 'This action adds a new category';
   }
@@ -20,7 +21,9 @@ export class CategoriesService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} category`;
+    return this.categoriesRepository.findOneBy({
+      id,
+    });
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {

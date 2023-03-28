@@ -1,0 +1,28 @@
+{% extends 'layouts/default.njk' %}
+
+{% block header %}
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h1 class="display-4 fw-normal">Categoria: {{ category.name }}</h1>
+    </div>
+{% endblock %}
+
+{% block main %}
+    
+    <div class="row">
+
+        {% for note in category.notes %}
+            <div class="col-sm-6">
+                {% set showLink = true %}
+                {% set bodyLimit = true %}
+                {% set showUpdatedAt = true %}
+                {% include('notes/card.njk') %}
+            </div>
+        {% else %}
+            <div class="col-sm-6">
+                <div>This would display if the 'notes' collection were empty</div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

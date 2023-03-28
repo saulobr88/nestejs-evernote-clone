@@ -15,6 +15,6 @@ export class AppController {
 
   @Get('create')
   create(@Res() res: Response) {
-    return res.render('notes/create.njk');
+    return res.render('notes/create');
   }
 }

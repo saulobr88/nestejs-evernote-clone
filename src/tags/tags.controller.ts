@@ -23,15 +23,23 @@ export class TagsController {
   }
 
   @Get()
-  findAll(@Res() res: Response) {
-    //return this.tagsService.findAll();
+  async findAll(@Res() res: Response) {
     const title: string = this.tagsService.getHello();
-    return res.render('tags/index.njk', { title });
+    const tags = await this.tagsService.findAll();
+
+    const result = { title, tags };
+    return res.render('tags/index', result);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tagsService.findOne(+id);
+  async findOne(@Param('id') id: string, @Res() res: Response) {
+    const tag = await this.tagsService.findOne(+id);
+    if (!tag) {
+      // return res.status(404).json({ code: '404', msg: 'Resource Not Found!' });
+      return res.render('errors/404');
+    }
+
+    return res.render('tags/show', { tag });
   }
 
   @Patch(':id')

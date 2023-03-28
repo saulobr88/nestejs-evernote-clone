@@ -40,7 +40,5 @@ async function bootstrap() {
   */
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);
-  console.log(`ROOT_DIR: ${ROOT_DIR}`);
-  console.log(`viewsPath: ${viewsPath}`);
 }
 bootstrap();

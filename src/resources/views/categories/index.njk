@@ -7,10 +7,19 @@
 
 {% block main %}
 
-    <div class="row">
-        <div class="col-sm-6">
-            <div>This would display if the 'categories' collection were empty</div>
-        </div>
-    </div>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="/categories/{{category.id}}" class="text-primary">{{ category.name }} ({{ category.notes.length }})</a>
+            </li>
+        {% else %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>This would display if the 'categories' collection were empty</div>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+    
 
 {% endblock %}

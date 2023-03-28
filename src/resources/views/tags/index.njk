@@ -6,11 +6,22 @@
 {% endblock %}
 
 {% block main %}
-
-    <div class="row">
-        <div class="col-sm-6">
-            <div>This would display if the 'tags' collection were empty</div>
-        </div>
+    <div>
+        Aqui são exibidas todas as Etiquetas do sistema
     </div>
+    <ul>
+        {% for tag in tags %}
+            <li>
+                <a href="/tags/{{tag.id}}" class="text-primary">{{ tag.name }} ({{ tag.notes.length }})</a>
+            </li>
+        {% else %}
+            <div class="row">
+                <div class="col-sm-6">
+                    <div>This would display if the 'tags' collection were empty</div>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+    
 
 {% endblock %}

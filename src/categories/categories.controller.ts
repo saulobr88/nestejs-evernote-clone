@@ -26,13 +26,22 @@ export class CategoriesController {
   async findAll(@Res() res: Response) {
     const title: string = this.categoriesService.getHello();
     const categories = await this.categoriesService.findAll();
-    return res.render('categories/index.njk', { title, categories });
+
+    const result = { title, categories };
+    return res.render('categories/index', result);
     // return this.categoriesService.findAll();
+    // return res.json(result);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
+  async findOne(@Param('id') id: string, @Res() res: Response) {
+    const category = await this.categoriesService.findOne(+id);
+    if (!category) {
+      // return res.status(404).json({ code: '404', msg: 'Resource Not Found!' });
+      return res.render('errors/404');
+    }
+
+    return res.render('categories/show', { category });
   }
 
   @Patch(':id')

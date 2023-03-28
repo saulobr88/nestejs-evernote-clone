@@ -1,0 +1,25 @@
+<div class="modal fade" id="modal-delete-note" tabindex="-1" aria-labelledby="modal-delete-note-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Deletar Nota</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="px-3 pt-3">
+                <h5>Tem certeza que deseja deletar a nota?</h5>
+            </div>
+            <div class="modal-body d-flex justify-content-lg-end">
+                <div class="p-2">
+                    <form action="/notes/{{note.id}}?_method=DELETE" id="form-delete-note" method="POST" >
+                        <input type="hidden" name="_csrf" value="{{ config._csrfToken }}">
+                        <button class="modal-footer d-flex btn button" type="submit" data-bs-dismiss="modal">Sim</button>
+                    </form>
+                </div>
+                <div class="p-2">
+                    <button class="modal-footer d-flex btn button-secondary" aria-label="Close" type="button" data-bs-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

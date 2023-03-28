@@ -1,0 +1,54 @@
+<div class="card" style="margin-top: 25px;">
+    <div class="card-header text-end">
+        Categoria:
+        {% if note.category.name === 'to do' -%}
+            {%- set categoryCssClass = 'bg-secondary' -%}
+        {%- elif note.category.name === 'doing' -%}
+            {%- set categoryCssClass = 'bg-warning text-dark' -%}
+        {%- elif note.category.name === 'done' -%}
+            {%- set categoryCssClass = 'bg-success' -%}
+        {%- else -%}
+            {%- set categoryCssClass = 'bg-primary' -%}
+        {%- endif -%}
+
+        <a href="/categories/{{note.category.id}}" class="badge text-decoration-none {{categoryCssClass}}">{{ note.category.name }}</a>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">{{ note.title }}</h5>
+        <p class="card-text" style="text-align: justify;">
+        {%- if bodyLimit -%}
+            {{- note.body.substring(0,61) -}}
+            {%- if note.body.length > 60 -%}...{%- endif -%}
+        {%- else -%}
+            {{ note.body }}
+        {%- endif -%}
+        </p>
+        <p class="fw-light text-muted" >
+            {%- if showCreatedAt -%}
+            Crieado em: {{ note.createdAt.toLocaleDateString() }} {{ note.createdAt.toLocaleTimeString() }}
+            {%- endif -%}
+            {%- if showUpdatedAt -%}
+            Atualizado em: {{ note.updatedAt.toLocaleDateString() }} {{ note.updatedAt.toLocaleTimeString() }}
+            {%- endif -%}
+        </p>
+        <div class="text-end">
+            {% if showLink %}
+                <a href="/{{note.id}}" class="btn btn-primary btn-sm">Ver mais</a>
+            {% endif %}
+            {% if editLink %}
+                <a href="/notes/{{note.id}}/edit" class="btn btn-success btn-sm">Editar</a>
+            {% endif %}
+            {% if deleteLink %}
+                <button class="btn btn-danger btn-sm" onclick="openDeleteModal('{{note.id}}')">Deletar</button>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        Etiquetas:
+        {% for tag in note.tags -%}
+            <a href="/tags/{{ tag.id }}" class="badge text-decoration-none bg-secondary">{{ tag.name }}</a>
+        {% endfor -%}
+    </div>
+
+    {% include('notes/modal-delete.njk') %}
+</div>
