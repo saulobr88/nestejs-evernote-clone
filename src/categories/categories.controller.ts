@@ -26,11 +26,11 @@ export class CategoriesController {
   async findAll(@Res() res: Response) {
     const title: string = this.categoriesService.getHello();
     const categories = await this.categoriesService.findAll();
-
     const result = { title, categories };
-    return res.render('categories/index', result);
+
     // return this.categoriesService.findAll();
     // return res.json(result);
+    return res.render('categories/index', result);
   }
 
   @Get(':id')

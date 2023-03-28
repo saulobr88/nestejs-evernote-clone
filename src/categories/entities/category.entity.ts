@@ -1,7 +1,10 @@
+import { Note } from 'src/notes/entities/note.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
+  JoinColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,4 +25,9 @@ export class Category {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
+
+  // Relations
+  @OneToMany(() => Note, (note: Note) => note.category)
+  @JoinColumn({ referencedColumnName: 'category_id' })
+  notes: Note[];
 }

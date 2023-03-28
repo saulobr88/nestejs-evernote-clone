@@ -17,12 +17,17 @@ export class CategoriesService {
   }
 
   findAll() {
-    return this.categoriesRepository.find();
+    return this.categoriesRepository.find({
+      relations: {
+        notes: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.categoriesRepository.findOneBy({
-      id,
+    return this.categoriesRepository.findOne({
+      where: { id },
+      relations: ['notes'],
     });
   }
 
