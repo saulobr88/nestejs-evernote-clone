@@ -10,6 +10,6 @@ export class createCategoriesTable1679328941713 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "categories"`);
+    await queryRunner.query(`DROP TABLE IF EXISTS "categories"`);
   }
 }

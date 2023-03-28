@@ -10,6 +10,6 @@ export class createTagsTable1679329492259 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DROP TABLE "tags"`);
+    await queryRunner.query(`DROP TABLE IF EXISTS "tags"`);
   }
 }
