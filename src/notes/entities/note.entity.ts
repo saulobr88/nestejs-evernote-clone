@@ -1,4 +1,5 @@
 import { Category } from 'src/categories/entities/category.entity';
+import { Tag } from 'src/tags/entities/tag.entity';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +8,8 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity({ name: 'notes' })
@@ -30,7 +33,27 @@ export class Note {
   updatedAt: string;
 
   // Relations
-  @ManyToOne(() => Category, (category: Category) => category.notes)
+  @ManyToOne(() => Category, (category: Category) => category.notes, {
+    eager: true,
+  })
   @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
   category: Category;
+
+  @ManyToMany(() => Tag, (tag: Tag) => tag.notes, {
+    onDelete: 'SET NULL',
+    onUpdate: 'NO ACTION',
+    eager: true,
+  })
+  @JoinTable({
+    name: 'note_tag',
+    joinColumn: {
+      name: 'note_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'tag_id',
+      referencedColumnName: 'id',
+    },
+  })
+  tags?: Tag[];
 }

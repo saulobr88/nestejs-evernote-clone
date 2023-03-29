@@ -1,7 +1,9 @@
+import { Note } from 'src/notes/entities/note.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,4 +24,11 @@ export class Tag {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
+
+  // Relations
+  @ManyToMany(() => Note, (note: Note) => note.tags, {
+    onDelete: 'SET NULL',
+    onUpdate: 'NO ACTION',
+  })
+  notes?: Note[];
 }

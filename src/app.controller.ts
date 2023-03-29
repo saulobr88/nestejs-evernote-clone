@@ -1,20 +1,42 @@
-import { Controller, Get, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Next, Param, Res } from '@nestjs/common';
+import { NextFunction, Response } from 'express';
 
 import { AppService } from './app.service';
+import { NotesService } from './notes/notes.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly notesService: NotesService,
+  ) {}
+
+  /*
+  @Get(':id')
+  async findOne(
+    @Param('id') id: string,
+    @Res() res: Response,
+    @Next() next: NextFunction,
+  ) {
+    if (!Number.isInteger(id)) next();
+
+    const note = await this.notesService.findOne(+id);
+    if (!note) {
+      // return res.status(404).json({ code: '404', msg: 'Resource Not Found!' });
+      return res.render('errors/404');
+    }
+
+    return res.render('notes/show', { note });
+  }
+  */
 
   @Get()
-  index(@Res() res: Response) {
-    const message: string = this.appService.getHello();
-    return res.render('index', { message });
-  }
+  async index(@Res() res: Response) {
+    const notes = await this.notesService.findAll();
+    const result = {
+      notes,
+    };
 
-  @Get('create')
-  create(@Res() res: Response) {
-    return res.render('notes/create');
+    return res.render('index', result);
   }
 }

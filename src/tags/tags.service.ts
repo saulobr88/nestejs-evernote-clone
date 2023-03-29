@@ -14,12 +14,22 @@ export class TagsService {
   }
 
   findAll() {
-    return this.tagsRepository.find();
+    return this.tagsRepository.find({
+      relations: {
+        notes: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.tagsRepository.findOneBy({
-      id,
+    return this.tagsRepository.findOne({
+      where: { id },
+      relations: ['notes'],
+      order: {
+        notes: {
+          createdAt: 'DESC',
+        },
+      },
     });
   }
 

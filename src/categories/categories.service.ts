@@ -28,6 +28,11 @@ export class CategoriesService {
     return this.categoriesRepository.findOne({
       where: { id },
       relations: ['notes'],
+      order: {
+        notes: {
+          createdAt: 'DESC',
+        },
+      },
     });
   }
 

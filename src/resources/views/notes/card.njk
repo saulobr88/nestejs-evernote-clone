@@ -33,7 +33,7 @@
         </p>
         <div class="text-end">
             {% if showLink %}
-                <a href="/{{note.id}}" class="btn btn-primary btn-sm">Ver mais</a>
+                <a href="/notes/{{note.id}}" class="btn btn-primary btn-sm">Ver mais</a>
             {% endif %}
             {% if editLink %}
                 <a href="/notes/{{note.id}}/edit" class="btn btn-success btn-sm">Editar</a>
@@ -47,6 +47,8 @@
         Etiquetas:
         {% for tag in note.tags -%}
             <a href="/tags/{{ tag.id }}" class="badge text-decoration-none bg-secondary">{{ tag.name }}</a>
+        {% else %}
+        ---
         {% endfor -%}
     </div>
 

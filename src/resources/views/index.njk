@@ -7,18 +7,24 @@
         <p class="fs-5 text-muted">
         Aqui é a página inicial, aqui são exibidas as anotações (notas) do sistema 😀 !!!
         </p>
-        <p>
-            {{ message }}
-        </p>
     </div>
 {% endblock %}
 
 {% block main %}
 
     <div class="row">
-        <div class="col-sm-6">
-            <div>This would display if the 'notes' collection were empty</div>
-        </div>
+        {% for note in notes %}
+            <div class="col-sm-6">
+                {% set showLink = true %}
+                {% set bodyLimit = true %}
+                {% set showUpdatedAt = true %}
+                {% include('notes/card.njk') %}
+            </div>
+        {% else %}
+            <div class="col-sm-6">
+                <div>This would display if the 'notes' collection were empty</div>
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}
