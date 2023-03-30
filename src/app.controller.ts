@@ -2,14 +2,10 @@ import { Controller, Get, Next, Param, Res } from '@nestjs/common';
 import { NextFunction, Response } from 'express';
 
 import { AppService } from './app.service';
-import { NotesService } from './notes/notes.service';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly notesService: NotesService,
-  ) {}
+  constructor(private readonly appService: AppService) {}
 
   /*
   @Get(':id')
@@ -30,6 +26,7 @@ export class AppController {
   }
   */
 
+  /*
   @Get()
   async index(@Res() res: Response) {
     const notes = await this.notesService.findAll();
@@ -39,4 +36,5 @@ export class AppController {
 
     return res.render('index', result);
   }
+  */
 }

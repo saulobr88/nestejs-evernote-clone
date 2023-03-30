@@ -7,8 +7,7 @@ import { AppService } from './app.service';
 import { CategoriesModule } from './categories/categories.module';
 import { TagsModule } from './tags/tags.module';
 import { NotesModule } from './notes/notes.module';
-import { NotesService } from './notes/notes.service';
-import { Note } from './notes/entities/note.entity';
+import { HomeModule } from './home/home.module';
 
 @Module({
   imports: [
@@ -17,9 +16,9 @@ import { Note } from './notes/entities/note.entity';
     CategoriesModule,
     TagsModule,
     NotesModule,
-    TypeOrmModule.forFeature([Note]),
+    HomeModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, NotesService],
+  // controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

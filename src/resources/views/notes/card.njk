@@ -33,10 +33,10 @@
         </p>
         <div class="text-end">
             {% if showLink %}
-                <a href="/notes/{{note.id}}" class="btn btn-primary btn-sm">Ver mais</a>
+                <a href="/{{note.id}}" class="btn btn-primary btn-sm">Ver mais</a>
             {% endif %}
             {% if editLink %}
-                <a href="/notes/{{note.id}}/edit" class="btn btn-success btn-sm">Editar</a>
+                <a href="/{{note.id}}/edit" class="btn btn-success btn-sm">Editar</a>
             {% endif %}
             {% if deleteLink %}
                 <button class="btn btn-danger btn-sm" onclick="openDeleteModal('{{note.id}}')">Deletar</button>
