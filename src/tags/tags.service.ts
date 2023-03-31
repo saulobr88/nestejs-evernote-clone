@@ -15,6 +15,10 @@ export class TagsService {
 
   findAll() {
     return this.tagsRepository.find({
+      order: {
+        name: 'ASC',
+        id: 'ASC',
+      },
       relations: {
         notes: true,
       },

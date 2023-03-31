@@ -23,8 +23,10 @@ export class NotesController {
   }
 
   @Post()
-  store(@Body() createNoteDto: CreateNoteDto) {
-    return this.notesService.create(createNoteDto);
+  store(@Body() createNoteDto: CreateNoteDto, @Res() res: Response) {
+    // return this.notesService.create(createNoteDto);
+    const msg = 'POST NoteController';
+    return res.json({ createNoteDto, msg });
   }
 
   @Get()
@@ -49,9 +51,16 @@ export class NotesController {
     return res.render('notes/show', { note });
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNoteDto: UpdateNoteDto) {
-    return this.notesService.update(+id, updateNoteDto);
+  // @Patch(':id')
+  @Post(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateNoteDto: UpdateNoteDto,
+    @Res() res: Response,
+  ) {
+    // return this.notesService.update(+id, updateNoteDto);
+    const msg = 'PATCH NoteController';
+    return res.json({ updateNoteDto, msg });
   }
 
   @Delete(':id')

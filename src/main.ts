@@ -25,7 +25,7 @@ async function bootstrap() {
   const viewsPath = join(ROOT_DIR, 'resources', 'views');
   nunjucks.configure(viewsPath, opts);
 
-  app.enableCors();
+  // app.enableCors();
   app.set('trust proxy', 1);
   app.set('views', viewsPath);
   app.set('view engine', 'njk');
@@ -38,6 +38,7 @@ async function bootstrap() {
     console.log(`http://localhost:${port}`);
   });
   */
+
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }

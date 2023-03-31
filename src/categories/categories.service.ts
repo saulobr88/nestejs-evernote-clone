@@ -18,6 +18,9 @@ export class CategoriesService {
 
   findAll() {
     return this.categoriesRepository.find({
+      order: {
+        id: 'ASC',
+      },
       relations: {
         notes: true,
       },
