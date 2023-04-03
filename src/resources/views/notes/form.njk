@@ -17,12 +17,12 @@
         <select 
             class="form-select"
             id="category_select"
-            name="category_id"
+            name="categoryId"
             placeholder="Selectione a categoria"
             required
         >
         {% for category in categories %}
-            <option value={{ category.id }} {% if note and (note.category_id === category.id) %} selected {% endif %} >{{ category.name }}</option>
+            <option value={{ category.id }} {% if note and (note.categoryId === category.id) %} selected {% endif %} >{{ category.name }}</option>
         {% endfor %}}
 
         </select>

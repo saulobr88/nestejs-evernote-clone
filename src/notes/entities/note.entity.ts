@@ -10,6 +10,7 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
+  BeforeInsert,
 } from 'typeorm';
 
 @Entity({ name: 'notes' })
