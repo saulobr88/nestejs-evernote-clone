@@ -1,5 +1,13 @@
-import { Controller, Get, Next, Param, Res } from '@nestjs/common';
-import { NextFunction, Response } from 'express';
+import {
+  Controller,
+  Get,
+  Next,
+  Param,
+  Res,
+  Req,
+  ArgumentsHost,
+} from '@nestjs/common';
+import { NextFunction, Response, Request } from 'express';
 
 import { NotesService } from 'src/notes/notes.service';
 import { CategoriesService } from 'src/categories/categories.service';
@@ -74,12 +82,19 @@ export class HomeController {
   }
 
   @Get()
-  async index(@Res() res: Response) {
+  async index(@Req() req: Request, @Res() res: Response) {
     const notes = await this.notesService.findAll();
     const result = {
       notes,
     };
 
+    // res.flash('success_msg', 'Mensagem de Sucesso aqui');
+    // res.flash('error_msg', 'Mensagem de Erro aqui');
     return res.render('index', result);
+    /*
+    req.session.save(() => {
+      return res.render('index', result);
+    });
+    */
   }
 }

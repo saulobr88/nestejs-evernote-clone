@@ -11,7 +11,6 @@ import { HomeModule } from './home/home.module';
 
 import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { trim_all } from 'request_trimmer';
-// import { MethodOverrideMiddleware } from '@nest-middlewares/method-override';
 import * as methodOverride from 'method-override';
 
 @Module({
@@ -31,7 +30,18 @@ export class AppModule {
     consumer.apply(trim_all).forRoutes('*');
     // override with POST having ?_method=DELETE Or ?_method=PUT
     consumer.apply(methodOverride('_method')).forRoutes('*');
-    // consumer.apply(MethodOverrideMiddleware).forRoutes('*');
+    /*
+    consumer
+      .apply(
+        session({
+          secret: 'my-secret',
+          resave: false,
+          saveUninitialized: false,
+        }),
+      )
+      .forRoutes('*');
+    consumer.apply(flash()).forRoutes('*');
+    */
     consumer.apply(LoggerMiddleware).exclude('auth').forRoutes('*');
   }
 }

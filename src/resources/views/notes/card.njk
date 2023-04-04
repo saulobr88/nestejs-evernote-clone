@@ -1,11 +1,11 @@
 <div class="card" style="margin-top: 25px;">
     <div class="card-header text-end">
         Categoria:
-        {% if note.category.name === 'to do' -%}
-            {%- set categoryCssClass = 'bg-secondary' -%}
-        {%- elif note.category.name === 'doing' -%}
+        {% if note.category.slug === 'todo' -%}
+            {%- set categoryCssClass = 'bg-info' -%}
+        {%- elif note.category.slug === 'doing' -%}
             {%- set categoryCssClass = 'bg-warning text-dark' -%}
-        {%- elif note.category.name === 'done' -%}
+        {%- elif note.category.slug === 'done' -%}
             {%- set categoryCssClass = 'bg-success' -%}
         {%- else -%}
             {%- set categoryCssClass = 'bg-primary' -%}

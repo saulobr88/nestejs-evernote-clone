@@ -29,9 +29,11 @@ export class NotesController {
     const msg = 'POST NoteController';
     return res.json({ createNoteDto, msg });
     */
+
     let note = await this.notesService.create(createNoteDto);
     if (!note) {
-      return res.redirect(`/create?msg=error in creating note`);
+      res.flash('error_msg', 'Não foi possível criar a nota');
+      return res.redirect(`/create`);
     }
 
     if (createNoteDto.tags?.length > 0) {
@@ -39,8 +41,9 @@ export class NotesController {
       note = await this.notesService.syncTags(note, createNoteDto.tags);
     }
 
+    res.flash('success_msg', 'Nota criada');
     // return 'note created successfully';
-    return res.redirect(`/${note.id}?msg=note created successfully`);
+    return res.redirect(`/${note.id}`);
   }
 
   @Get()
@@ -73,11 +76,14 @@ export class NotesController {
     @Res() res: Response,
   ) {
     // return this.notesService.update(+id, updateNoteDto);
-    // const msg = 'PATCH NoteController';
-    // return res.json({ updateNoteDto, msg });
+    /*
+    const msg = 'PATCH NoteController';
+    return res.json({ updateNoteDto, msg });
+    */
     let note = await this.notesService.update(+id, updateNoteDto);
     if (!note) {
-      return res.redirect(`/${id}?msg=error updating note`);
+      res.flash('error_msg', 'Nota foi possível atualizar a nota informada');
+      return res.redirect(`/${id}/edit`);
     }
 
     if (updateNoteDto.tags?.length > 0) {
@@ -85,8 +91,9 @@ export class NotesController {
       note = await this.notesService.syncTags(note, updateNoteDto.tags);
     }
 
+    res.flash('success_msg', 'Nota atualizada');
     // return 'note created successfully';
-    return res.redirect(`/${note.id}?msg=note updated successfully`);
+    return res.redirect(`/${note.id}`);
   }
 
   @Delete(':id')
@@ -97,9 +104,11 @@ export class NotesController {
     */
     const result = await this.notesService.remove(+id);
     if (!result) {
-      return res.redirect(`/${id}?msg=error while deleting`);
+      res.flash('error_msg', 'Nota foi possível deletar a nota informada');
+      return res.redirect(`/${id}`);
     }
 
-    return res.redirect(`/?msg=note deleted with successful`);
+    res.flash('success_msg', `Nota ${+id} deletada`);
+    return res.redirect(`/`);
   }
 }

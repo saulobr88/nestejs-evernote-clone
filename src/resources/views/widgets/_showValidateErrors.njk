@@ -1,0 +1,12 @@
+{% for msg in getFlashMessages('success_msg') %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Sucesso:</strong> {{msg}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% for msg in getFlashMessages('error_msg') %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Erro:</strong> {{msg}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}

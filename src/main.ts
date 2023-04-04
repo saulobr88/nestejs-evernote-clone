@@ -2,6 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as nunjucks from 'nunjucks';
+// import * as methodOverride from 'method-override';
+import * as session from 'express-session';
+import flash from 'express-flash-message';
+
 import { AppModule } from './app.module';
 
 /**
@@ -38,6 +42,26 @@ async function bootstrap() {
     console.log(`http://localhost:${port}`);
   });
   */
+
+  // app.use(trim_all);
+  // app.use(methodOverride('_method'));
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+  app.use(
+    flash({
+      sessionKeyName: 'express-flash-message',
+      // below are optional property you can pass in to track
+      // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+      onAddFlash: (type, message) => {},
+      // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars
+      onConsumeFlash: (type: string, messages: string[]) => {},
+    }),
+  );
 
   await app.listen(port);
   console.log(`Application is running on: ${await app.getUrl()}`);
