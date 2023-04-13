@@ -1,20 +1,21 @@
 import {
   Controller,
+  DefaultValuePipe,
   Get,
   Next,
   Param,
+  ParseIntPipe,
+  Query,
   Res,
   Req,
   StreamableFile,
 } from '@nestjs/common';
 import { NextFunction, Response, Request } from 'express';
+import { Pagination } from 'nestjs-typeorm-paginate';
 
 import { NotesService } from 'src/notes/notes.service';
 import { CategoriesService } from 'src/categories/categories.service';
 import { TagsService } from 'src/tags/tags.service';
-
-import { createReadStream, readFileSync } from 'fs';
-import { join } from 'path';
 
 @Controller()
 export class HomeController {
@@ -85,19 +86,28 @@ export class HomeController {
   }
 
   @Get()
-  async index(@Req() req: Request, @Res() res: Response) {
-    const notes = await this.notesService.findAll();
+  async index(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page = 1,
+    @Query('limit', new DefaultValuePipe(4), ParseIntPipe) limit = 4,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    limit = limit > 100 ? 100 : limit;
+    page = page < 1 ? 1 : page;
+    // const notes = await this.notesService.findAll();
+    const paginateOptions = {
+      page,
+      limit,
+      route: `${req.protocol}://${req.headers.host}`,
+    };
+
+    // return res.json(paginateOptions);
+    const notesPaginate = await this.notesService.paginate(paginateOptions);
+    const notes = await this.notesService.hydrate(notesPaginate);
     const result = {
       notes,
     };
-
-    // res.flash('success_msg', 'Mensagem de Sucesso aqui');
-    // res.flash('error_msg', 'Mensagem de Erro aqui');
+    // return res.json(result);
     return res.render('index', result);
-    /*
-    req.session.save(() => {
-      return res.render('index', result);
-    });
-    */
   }
 }

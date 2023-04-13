@@ -1,6 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { Note } from './entities/note.entity';
@@ -38,6 +43,29 @@ export class NotesService {
         id: 'DESC',
       },
     });
+  }
+
+  async paginate(options: IPaginationOptions): Promise<Pagination<Note>> {
+    const queryBuilder = this.notesRepository.createQueryBuilder('c');
+    queryBuilder.orderBy('c.createdAt', 'DESC').addOrderBy('c.id', 'DESC');
+
+    return paginate<Note>(queryBuilder, options);
+  }
+
+  async hydrate(results: Pagination<Note>) {
+    return new Pagination(
+      await Promise.all(
+        results.items.map(async (item: Note) => {
+          const hydrate = await this.notesRepository.findOne({
+            where: { id: item.id },
+          });
+          // item.hydrated = hydrate;
+          return hydrate;
+        }),
+      ),
+      results.meta,
+      results.links,
+    );
   }
 
   findOne(id: number) {

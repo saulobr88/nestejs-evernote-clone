@@ -37,6 +37,7 @@
     "express-flash-message": "^3.0.2",
     "express-session": "^1.17.3",
     "method-override": "^3.0.0",
+    "nestjs-typeorm-paginate": "^4.0.3",
     "nunjucks": "^3.2.3",
     "pg": "^8.10.0",
     "reflect-metadata": "^0.1.13",

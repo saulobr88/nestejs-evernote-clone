@@ -13,7 +13,7 @@
 {% block main %}
 
     <div class="row">
-        {% for note in notes %}
+        {% for note in notes.items %}
             <div class="col-sm-6">
                 {% set showLink = true %}
                 {% set bodyLimit = true %}
@@ -26,5 +26,32 @@
             </div>
         {% endfor %}
     </div>
+
+    {% if notes.links -%}
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <nav aria-label="..." class="mt-4">
+                <ul class="pagination">
+                    {% if notes.links.previous.length > 0 -%}
+                    {% set disablePrevious = '' -%}
+                    {% else -%}
+                    {% set disablePrevious = 'disabled' -%}
+                    {% endif -%}
+                    <li class="page-item {{disablePrevious}}">
+                        <a class="page-link" href="{{notes.links.previous}}" tabindex="-1" aria-disabled="true">Anterior</a>
+                    </li>
+                    {% if notes.links.next.length > 0 -%}
+                    {% set disableNext = '' -%}
+                    {% else -%}
+                    {% set disableNext = 'disabled' -%}
+                    {% endif -%}
+                    <li class="page-item {{disableNext}}">
+                        <a class="page-link" href="{{notes.links.next}}">Próxima</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif -%}
 
 {% endblock %}
