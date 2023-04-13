@@ -5,13 +5,16 @@ import {
   Param,
   Res,
   Req,
-  ArgumentsHost,
+  StreamableFile,
 } from '@nestjs/common';
 import { NextFunction, Response, Request } from 'express';
 
 import { NotesService } from 'src/notes/notes.service';
 import { CategoriesService } from 'src/categories/categories.service';
 import { TagsService } from 'src/tags/tags.service';
+
+import { createReadStream, readFileSync } from 'fs';
+import { join } from 'path';
 
 @Controller()
 export class HomeController {

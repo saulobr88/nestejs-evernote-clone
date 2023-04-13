@@ -37,4 +37,7 @@ export class AppController {
     return res.render('index', result);
   }
   */
+  getHello() {
+    return this.appService.getHello();
+  }
 }

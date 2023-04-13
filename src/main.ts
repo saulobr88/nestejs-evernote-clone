@@ -33,7 +33,7 @@ async function bootstrap() {
   app.set('trust proxy', 1);
   app.set('views', viewsPath);
   app.set('view engine', 'njk');
-  app.useStaticAssets(join(__dirname, '..', 'public'));
+  // app.useStaticAssets(join(__dirname, '..', 'public'));
 
   /*
   app.setBaseViewsDir(join(__dirname, '..', 'resources', 'views'));  

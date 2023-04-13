@@ -13,6 +13,9 @@ import { LoggerMiddleware } from './common/middleware/logger/logger.middleware';
 import { trim_all } from 'request_trimmer';
 import * as methodOverride from 'method-override';
 
+import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
+import { join } from 'path';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,6 +23,13 @@ import * as methodOverride from 'method-override';
     CategoriesModule,
     TagsModule,
     NotesModule,
+    /**
+     * Ref.: how to get serve static images Nestjs < https://stackoverflow.com/questions/68019001/how-to-get-serve-static-images-nestjs >
+     */
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '../public'), // added ../ to get one folder back
+      serveRoot: '/assets/', //last slash was important
+    }),
     HomeModule,
   ],
   // controllers: [AppController],
